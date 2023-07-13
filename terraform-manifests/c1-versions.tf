@@ -16,4 +16,10 @@ terraform {
 # Provider Block
 provider "aws" {
   region = var.aws_region
+  profile = "default"
+}
+
+# Create Random Pet Resource
+resource "random_pet" "this" {
+  length = 2
 }

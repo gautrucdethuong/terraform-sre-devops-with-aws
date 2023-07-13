@@ -1,8 +1,8 @@
 # Define placement group
-resource "aws_placement_group" "cluster_group" {
-  name     = "test"
-  strategy = "cluster"
-}
+# resource "aws_placement_group" "cluster_group" {
+#   name     = "test"
+#   strategy = "cluster"
+# }
 
 # # Autoscaling Group Resource
 module "autoscaling" {
@@ -18,7 +18,7 @@ module "autoscaling" {
   # wait_for_capacity_timeout = 0
   health_check_type   = "EC2"
   vpc_zone_identifier = [module.vpc.private_subnets[0], module.vpc.private_subnets[1]]
-  placement_group     = aws_placement_group.cluster_group.id
+  # placement_group     = aws_placement_group.cluster_group.id
 
   instance_refresh = {
     strategy = "Rolling"
@@ -81,8 +81,7 @@ module "autoscaling" {
     cpu_credits = "standard"
   }
 
-  # target_group_arns = module.alb.target_group_arns // Add ALB into Auto scale group
-  target_group_arns = module.nlb.target_group_arns
+  target_group_arns = module.alb.target_group_arns // Add ALB into Auto scale group
   # instance_market_options = {
   #   market_type = "spot"
   #   spot_options = {
